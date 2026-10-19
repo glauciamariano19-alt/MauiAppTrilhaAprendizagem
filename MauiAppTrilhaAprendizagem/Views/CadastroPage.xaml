@@ -11,10 +11,19 @@
                    HorizontalOptions="Center"
                    TextColor="DarkBlue"/>
 
+            <!-- Nome -->
             <Entry x:Name="NomeEntry" Placeholder="Nome completo"/>
+
+            <!-- Idade -->
+            <Entry x:Name="IdadeEntry" Placeholder="Idade" Keyboard="Numeric"/>
+
+            <!-- Email -->
             <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email"/>
+
+            <!-- Senha -->
             <Entry x:Name="SenhaEntry" Placeholder="Senha" IsPassword="True"/>
 
+            <!-- Perfil -->
             <Picker x:Name="PerfilPicker" Title="Selecione o perfil">
                 <Picker.Items>
                     <x:String>Aluno</x:String>
@@ -23,6 +32,7 @@
                 </Picker.Items>
             </Picker>
 
+            <!-- Botão -->
             <Button Text="Cadastrar"
                     BackgroundColor="#0078D7"
                     TextColor="White"

@@ -1,32 +1,36 @@
+using MauiAppTrilhaAprendizagem.Models;
+using MauiAppTrilhaAprendizagem.Views.Aluno;
+
 namespace MauiAppTrilhaAprendizagem.Views
 {
     public partial class AlunoHomePage : ContentPage
     {
-        public AlunoHomePage()
+        private AlunoModel aluno;
+
+        // Construtor que recebe o AlunoModel
+        public AlunoHomePage(AlunoModel alunoModel)
         {
             InitializeComponent();
+            aluno = alunoModel;
         }
 
         private async void OnTrilhasClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TrilhaMatematicaPage());
+            await Navigation.PushAsync(new TrilhasPage(aluno));
         }
 
         private async void OnExerciciosClicked(object sender, EventArgs e)
         {
-            // Aqui futuramente você pode abrir uma página de exercícios e avaliações
-            await DisplayAlert("Exercícios", "Aqui o aluno acessará exercícios e avaliações.", "OK");
+            await Navigation.PushAsync(new ExerciciosPage(aluno));
         }
 
         private async void OnProgressoClicked(object sender, EventArgs e)
         {
-            // Aqui futuramente você pode abrir uma página de progresso detalhado
-            await DisplayAlert("Progresso", "Aqui o aluno acompanhará seu progresso.", "OK");
+            await Navigation.PushAsync(new ProgressoPage(aluno));
         }
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            // Volta para a tela de Login
             await Navigation.PopToRootAsync();
         }
     }

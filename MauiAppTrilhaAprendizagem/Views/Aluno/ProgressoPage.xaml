@@ -1,0 +1,39 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppTrilhaAprendizagem.Views.Aluno.ProgressoPage"
+             Title="Meu Progresso">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Nome do aluno -->
+            <Label Text="{Binding Nome}" 
+                   FontSize="24" 
+                   TextColor="DarkBlue" 
+                   HorizontalOptions="Center"/>
+
+            <!-- Pontuação total -->
+            <Label Text="Pontuação Total:" FontSize="20" />
+            <Label Text="{Binding PontuacaoTotal}" 
+                   FontSize="20" 
+                   TextColor="Green" />
+
+            <!-- Lista de exercícios concluídos -->
+            <CollectionView ItemsSource="{Binding Exercicios}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="5" BackgroundColor="#F0F8FF" CornerRadius="8">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Nome}" FontSize="18" TextColor="Black"/>
+                                <Label Text="Pontuação: {Binding Pontuacao}" FontSize="16"/>
+                                <Label Text="Tentativas: {Binding Tentativas}" FontSize="16"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+

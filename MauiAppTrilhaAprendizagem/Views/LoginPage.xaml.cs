@@ -1,5 +1,6 @@
 using MauiAppTrilhaAprendizagem.Data;
 using MauiAppTrilhaAprendizagem.Models;
+using MauiAppTrilhaAprendizagem.Views.Aluno;
 
 namespace MauiAppTrilhaAprendizagem.Views
 {
@@ -25,10 +26,15 @@ namespace MauiAppTrilhaAprendizagem.Views
             {
                 await DisplayAlert("Bem-vindo!", $"Olá, {usuario.Nome} ({usuario.Perfil})", "OK");
 
-                // Redireciona conforme o perfil
                 Page destino = usuario.Perfil switch
                 {
-                    "Aluno" => new AlunoHomePage(),
+                    "Aluno" => new AlunoHomePage(new AlunoModel
+                    {
+                        Nome = usuario.Nome,
+                        Idade = 0, // valor padrão
+                        PontuacaoTotal = 0,
+                        Exercicios = new List<ExercicioModel>()
+                    }),
                     "Professor" => new ProfessorHomePage(),
                     "Designer Pedagógico" => new DesignerHomePage(),
                     _ => new LoginPage()
@@ -46,6 +52,6 @@ namespace MauiAppTrilhaAprendizagem.Views
         {
             await Navigation.PushAsync(new CadastroPage());
         }
-
     }
 }
+

@@ -1,0 +1,28 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppTrilhaAprendizagem.Views.Aluno.ExerciciosPage"
+             Title="Exercícios e Avaliação">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="Resolva os exercícios da trilha escolhida!"
+                   FontSize="24"
+                   TextColor="DarkBlue"
+                   HorizontalOptions="Center" />
+
+            <!-- Conteúdo do exercício -->
+            <Label Text="Exercício: Contar bolas" FontSize="20" />
+            
+
+            <!-- Botão para enviar respostas -->
+            <Button Text="Finalizar Exercício"
+                    BackgroundColor="#32CD32"
+                    TextColor="White"
+                    FontSize="20"
+                    CornerRadius="10"
+                    Clicked="OnFinalizarExercicioClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

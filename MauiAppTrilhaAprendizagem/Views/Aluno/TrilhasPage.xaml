@@ -1,0 +1,68 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppTrilhaAprendizagem.Views.Aluno.TrilhasPage"
+             BackgroundColor="#F0F8FF"
+             Title="Minhas Trilhas">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="30">
+
+            <!-- Título -->
+            <Label Text="Escolha sua trilha de aprendizagem!"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#1E90FF"
+                   HorizontalOptions="Center" />
+
+            <!-- Trilha dos Números -->
+            <Frame BackgroundColor="#FFFACD"
+                   CornerRadius="20"
+                   Padding="15"
+                   HasShadow="True">
+                <Button Text="🧮 Trilha dos Números"
+                        FontSize="22"
+                        TextColor="Black"
+                        BackgroundColor="Transparent"
+                        Clicked="OnTrilhaNumerosClicked" />
+            </Frame>
+
+            <!-- Trilha das Quantidades -->
+            <Frame BackgroundColor="#E0FFE0"
+                   CornerRadius="20"
+                   Padding="15"
+                   HasShadow="True">
+                <Button Text="🎈 Trilha das Quantidades"
+                        FontSize="22"
+                        TextColor="Black"
+                        BackgroundColor="Transparent"
+                        Clicked="OnTrilhaQuantidadesClicked" />
+            </Frame>
+
+            <!-- Trilha das Cores e Formas -->
+            <Frame BackgroundColor="#E6E6FA"
+                   CornerRadius="20"
+                   Padding="15"
+                   HasShadow="True">
+                <Button Text="🎨 Trilha das Cores e Formas"
+                        FontSize="22"
+                        TextColor="Black"
+                        BackgroundColor="Transparent"
+                        Clicked="OnTrilhaCoresFormasClicked" />
+            </Frame>
+
+            <!-- Trilha dos Desafios -->
+            <Frame BackgroundColor="#FFD6E7"
+                   CornerRadius="20"
+                   Padding="15"
+                   HasShadow="True">
+                <Button Text="🧠 Trilha dos Desafios"
+                        FontSize="22"
+                        TextColor="Black"
+                        BackgroundColor="Transparent"
+                        Clicked="OnTrilhaDesafiosClicked" />
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+

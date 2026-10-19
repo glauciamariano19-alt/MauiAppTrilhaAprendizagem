@@ -24,11 +24,33 @@ namespace MauiAppTrilhaAprendizagem.Views
                 Perfil = PerfilPicker.SelectedItem?.ToString()
             };
 
+            // Salva no banco
             await _db.AddUsuarioAsync(usuario);
-            await DisplayAlert("Sucesso", "Usuário cadastrado com sucesso!", "OK");
+
+            // Se for aluno, cria o AlunoModel com idade digitada
+            if (usuario.Perfil == "Aluno")
+            {
+                int idade = 0;
+                int.TryParse(IdadeEntry.Text, out idade);
+
+                var aluno = new AlunoModel
+                {
+                    Nome = usuario.Nome,
+                    Idade = idade,
+                    PontuacaoTotal = 0
+                };
+
+                // Navega para a Home do Aluno
+                await Navigation.PushAsync(new AlunoHomePage(aluno));
+            }
+            else
+            {
+                await DisplayAlert("Sucesso", $"Usuário {usuario.Perfil} cadastrado com sucesso!", "OK");
+            }
 
             // Limpa os campos após o cadastro
             NomeEntry.Text = string.Empty;
+            IdadeEntry.Text = string.Empty;
             EmailEntry.Text = string.Empty;
             SenhaEntry.Text = string.Empty;
             PerfilPicker.SelectedItem = null;
