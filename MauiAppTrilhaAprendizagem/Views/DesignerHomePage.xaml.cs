@@ -1,21 +1,33 @@
+using MauiAppTrilhaAprendizagem.Models;
+
 namespace MauiAppTrilhaAprendizagem.Views
 {
-    public partial class DesignerHomePage : ContentPage
+    public partial class CriarConteudoPage : ContentPage
     {
-        public DesignerHomePage()
+        public CriarConteudoPage()
         {
             InitializeComponent();
         }
 
-        private async void OnCriarConteudosClicked(object sender, EventArgs e)
+        private async void OnSalvarConteudoClicked(
+            object sender,
+            EventArgs e)
         {
-            await DisplayAlert("Criar Conteúdos", "Aqui o designer pedagógico poderá criar novos conteúdos.", "OK");
-        }
+            if (pickerTrilha.SelectedIndex < 0 ||
+                string.IsNullOrWhiteSpace(entryPergunta.Text) ||
+                string.IsNullOrWhiteSpace(entryAltA.Text) ||
+                string.IsNullOrWhiteSpace(entryAltB.Text) ||
+                string.IsNullOrWhiteSpace(entryAltC.Text) ||
+                pickerCorreta.SelectedIndex < 0)
+            {
+                await DisplayAlert("Atenção", "Preencha todos os campos.","OK");
 
-        private async void OnLogoutClicked(object sender, EventArgs e)
-        {
-            // Volta para a tela de Login
-            await Navigation.PopToRootAsync();
+                return;
+            }
+
+            await DisplayAlert("Sucesso", $"Novo conteúdo criado para a {pickerTrilha.SelectedItem}","OK");
+
+            await Navigation.PopAsync();
         }
     }
 }

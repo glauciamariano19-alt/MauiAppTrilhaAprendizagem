@@ -1,69 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppTrilhaAprendizagem.Views.CriarConteudoPage"
-             Title="Criar / Editar Conteúdos">
+             Title="Criar Conteúdo">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
 
-            <Label Text="Novo Desafio para as Trilhas" 
-                   FontSize="20" 
+        <VerticalStackLayout Padding="20"
+                             Spacing="12">
+
+            <Label Text="🎨 NOVO DESAFIO"
+                   FontSize="24"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center" 
-                   TextColor="Purple"/>
+                   HorizontalOptions="Center"/>
 
-            <!-- 1. Seleção da Trilha -->
-            <Label Text="1. Selecione a Trilha de Destino:" FontAttributes="Bold"/>
-            <Picker x:Name="pickerTrilha" Title="Selecione uma trilha...">
+            <Label Text="Trilha de Destino"/>
+
+            <Picker x:Name="pickerTrilha">
+
                 <Picker.Items>
                     <x:String>Trilha dos Números</x:String>
                     <x:String>Trilha das Quantidades</x:String>
                     <x:String>Trilha das Cores</x:String>
                     <x:String>Trilha das Formas</x:String>
                 </Picker.Items>
+
             </Picker>
 
-            <!-- 2. Pergunta -->
-            <Label Text="2. Digite a Pergunta Norteadora (Caixa Alta):" FontAttributes="Bold"/>
-            <Entry x:Name="entryPergunta" Placeholder="Ex: QUAL É A COR DO MAR?" TextTransform="Upper"/>
+            <Label Text="Pergunta"/>
 
-            <!-- 3. Upload de Imagem -->
-            <Label Text="3. Selecione o Estímulo Visual:" FontAttributes="Bold"/>
-            <Button x:Name="btnUpload" 
-                    Text="📁 Selecionar Imagem" 
-                    BackgroundColor="Gray" 
-                    TextColor="White"
-                    Clicked="OnUploadImagemClicked"/>
-            <Label x:Name="lblNomeImagem" Text="Nenhuma imagem selecionada" FontSize="12" TextColor="DimGray"/>
+            <Entry x:Name="entryPergunta"
+                   Placeholder="Digite a pergunta"/>
 
+            <Label Text="Alternativa A"/>
 
-            <!-- 4. Alternativas -->
-            <Label Text="4. Cadastre as Alternativas:" FontAttributes="Bold"/>
+            <Entry x:Name="entryAltA"
+                   Placeholder="Alternativa A"/>
 
-            <Entry x:Name="entryAltA" Placeholder="Alternativa A"/>
-            <Entry x:Name="entryAltB" Placeholder="Alternativa B"/>
-            <Entry x:Name="entryAltC" Placeholder="Alternativa C"/>
+            <Label Text="Alternativa B"/>
 
-            <!-- 5. Resposta Correta -->
-            <Label Text="5. Qual é a alternativa correta?" FontAttributes="Bold"/>
-            <Picker x:Name="pickerCorreta" Title="Selecione a resposta certa...">
+            <Entry x:Name="entryAltB"
+                   Placeholder="Alternativa B"/>
+
+            <Label Text="Alternativa C"/>
+
+            <Entry x:Name="entryAltC"
+                   Placeholder="Alternativa C"/>
+
+            <Label Text="Resposta Correta"/>
+
+            <Picker x:Name="pickerCorreta">
+
                 <Picker.Items>
-                    <x:String>Alternativa A</x:String>
-                    <x:String>Alternativa B</x:String>
-                    <x:String>Alternativa C</x:String>
+                    <x:String>A</x:String>
+                    <x:String>B</x:String>
+                    <x:String>C</x:String>
                 </Picker.Items>
+
             </Picker>
 
-
-            <!-- Botão Salvar -->
-            <Button Text="✔ Salvar e Publicar na Trilha" 
-                    BackgroundColor="#0078D7" 
+            <Button Text="✅ Salvar Conteúdo"
+                    BackgroundColor="#0078D7"
                     TextColor="White"
-                    FontAttributes="Bold"
-                    Margin="0,20,0,0"
                     Clicked="OnSalvarConteudoClicked"/>
 
         </VerticalStackLayout>
+
     </ScrollView>
+
 </ContentPage>

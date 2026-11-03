@@ -1,4 +1,4 @@
-namespace MauiAppTrilhaAprendizagem.Views;
+namespace MauiAppTrilhaAprendizagem.Views
 
 {
     public partial class CriarConteudoPage : ContentPage
@@ -59,4 +59,5 @@ namespace MauiAppTrilhaAprendizagem.Views;
         // Retorna o designer para a página inicial dele
         await Navigation.PopAsync();
     }
+
 }
