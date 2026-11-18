@@ -1,4 +1,5 @@
 ﻿using MauiAppTrilhaAprendizagem.Data;
+using MauiAppTrilhaAprendizagem.Views;
 
 namespace MauiAppTrilhaAprendizagem
 {
@@ -13,7 +14,7 @@ namespace MauiAppTrilhaAprendizagem
                 if (_database == null)
                 {
                     _database = new DatabaseContext();
-                    _database.InitializeAsync().Wait();
+                    
                 }
                 return _database;
             }
@@ -22,7 +23,7 @@ namespace MauiAppTrilhaAprendizagem
         public App()
         {
             InitializeComponent();
-            MainPage = new AppShell(); // Define o AppShell como página inicial
+            MainPage = new NavigationPage(new LoginPage());
         }
     }
 }

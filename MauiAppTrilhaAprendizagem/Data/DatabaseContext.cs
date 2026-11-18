@@ -124,5 +124,19 @@ namespace MauiAppTrilhaAprendizagem.Data
 
             return await _database.UpdateAsync(usuario);
         }
+
+        // 🌟 NOVO MÉTODO: Salva a atividade de reforço na conta do aluno
+        public async Task<int> AtribuirReforcoAlunoAsync(int idUsuario, string nomeTrilhaReforco)
+        {
+            var usuario = await _database.Table<Usuario>()
+                .Where(u => u.IdUsuario == idUsuario)
+                .FirstOrDefaultAsync();
+
+            if (usuario == null) return 0;
+
+            usuario.AtividadeReforco = nomeTrilhaReforco;
+            return await _database.UpdateAsync(usuario);
+        }
+
     }
 }

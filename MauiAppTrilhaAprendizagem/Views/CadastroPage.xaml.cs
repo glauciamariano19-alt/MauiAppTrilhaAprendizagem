@@ -16,23 +16,33 @@ namespace MauiAppTrilhaAprendizagem.Views
 
         private async void OnCadastrarClicked(object sender, EventArgs e)
         {
+            int idade = 0;
+            int.TryParse(IdadeEntry.Text, out idade);
+
             var usuario = new Usuario
             {
-                Nome = NomeEntry.Text,
-                Email = EmailEntry.Text,
-                Senha = SenhaEntry.Text,
-                Perfil = PerfilPicker.SelectedItem?.ToString()
+                Nome = NomeEntry.Text?.Trim(),
+                Email = EmailEntry.Text?.Trim(),
+                Senha = SenhaEntry.Text?.Trim(),
+                Perfil = PerfilPicker.SelectedItem?.ToString(),
+                Idade = idade
             };
 
-            // Salva no banco
+            if (string.IsNullOrEmpty(usuario.Nome) || string.IsNullOrEmpty(usuario.Email) ||
+                string.IsNullOrEmpty(usuario.Senha) || string.IsNullOrEmpty(usuario.Perfil))
+            {
+                await DisplayAlert("Atenção", "Preencha todos os campos e selecione o perfil.", "OK");
+                return;
+            }
+
+            // Salva no banco (o SQLite preenche automaticamente o usuario.IdUsuario logo após essa linha)
             await _db.AddUsuarioAsync(usuario);
 
-            // Se for aluno, cria o AlunoModel com idade digitada
+            // 🌟 CORREÇÃO: Atualiza a memória com o ID do novo usuário cadastrado
+            Preferences.Default.Set("IdUsuarioLogado", usuario.IdUsuario);
+
             if (usuario.Perfil == "Aluno")
             {
-                int idade = 0;
-                int.TryParse(IdadeEntry.Text, out idade);
-
                 var aluno = new AlunoModel
                 {
                     Nome = usuario.Nome,
@@ -40,12 +50,12 @@ namespace MauiAppTrilhaAprendizagem.Views
                     PontuacaoTotal = 0
                 };
 
-                // Navega para a Home do Aluno
                 await Navigation.PushAsync(new AlunoHomePage(aluno));
             }
             else
             {
                 await DisplayAlert("Sucesso", $"Usuário {usuario.Perfil} cadastrado com sucesso!", "OK");
+                await Navigation.PopAsync();
             }
 
             // Limpa os campos após o cadastro

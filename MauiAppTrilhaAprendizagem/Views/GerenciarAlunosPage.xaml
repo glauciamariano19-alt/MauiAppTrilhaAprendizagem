@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppTrilhaAprendizagem.Views.GerenciarAlunosPage"
+             Title="Gerenciar Alunos"
+             BackgroundColor="#F5F5F5">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="👥 GERENCIAR CADASTROS"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="Purple"/>
+
+        <Label Text="Remova alunos transferidos ou inativos"
+               FontSize="14"
+               HorizontalOptions="Center"
+               TextColor="Gray"
+               Margin="0,0,0,10"/>
+
+        <CollectionView x:Name="AlunosCollectionView" VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White" Margin="0,5" Padding="15" CornerRadius="10" BorderColor="#E0E0E0">
+                        <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+
+                            <VerticalStackLayout VerticalOptions="Center" Spacing="2">
+                                <Label Text="{Binding Nome}" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+                                <Label Text="{Binding Email}" FontSize="14" TextColor="Gray"/>
+                            </VerticalStackLayout>
+
+                            <Button Grid.Column="1"
+                                    Text="🗑️ Excluir"
+                                    BackgroundColor="#DC2626"
+                                    TextColor="White"
+                                    FontAttributes="Bold"
+                                    CornerRadius="8"
+                                    Clicked="OnExcluirAlunoClicked"
+                                    CommandParameter="{Binding .}"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -51,6 +51,10 @@ namespace MauiAppTrilhaAprendizagem.Views
             ("televisao.png", "RETÂNGULO", "QUAL É A FORMA DA TELEVISÃO?", new string[] { "QUADRADO", "RETÂNGULO", "CÍRCULO" }),
         };
 
+        // Uma lista simples para guardar as atividades criadas pelo Designer
+        System.Collections.Generic.List<ConteudoTrilha> perguntasDoBanco = new System.Collections.Generic.List<ConteudoTrilha>();
+
+
         public TrilhaMatematicaPage(AlunoModel alunoModel, int trilhaInicial = 1, int idTrilha = 1)
         {
             InitializeComponent();
@@ -69,8 +73,37 @@ namespace MauiAppTrilhaAprendizagem.Views
             };
 
             this.Title = nomeTrilhaTexto;
+            CarregarDadosDoBancoEIniciar();
+        }
+
+        private async void CarregarDadosDoBancoEIniciar()
+        {
+            try
+            {
+                // Busca todas as perguntas cadastradas pelo Designer no banco de dados
+                var todasAsPerguntas = await App.Database.GetConteudosAsync();
+
+                if (todasAsPerguntas != null)
+                {
+                    foreach (var item in todasAsPerguntas)
+                    {
+                        // Filtra para pegar apenas as perguntas que pertencem à trilha atual que o aluno abriu
+                        if (item.Trilha == nomeTrilhaTexto)
+                        {
+                            perguntasDoBanco.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao buscar novos conteúdos: {ex.Message}");
+            }
+
+            // Depois que o banco terminou de carregar tudo, aí sim chama a sua função original para mostrar o exercício
             CarregarExercicio();
         }
+
 
         void CarregarExercicio()
         {
@@ -82,35 +115,80 @@ namespace MauiAppTrilhaAprendizagem.Views
             OutraTrilhaButton.IsVisible = false;
             BotoesLayout.Children.Clear();
 
+            // ==================== TRILHA 3: CORES ====================
             if (idTrilhaAtual == 3)
             {
-                var exercicio = perguntasCores[exercicioAtual];
-                ExercicioImage.Source = exercicio.imagem;
-                PerguntaLabel.Text = exercicio.pergunta;
-
-                foreach (var opcao in exercicio.opcoes)
+                if (exercicioAtual < perguntasCores.Length)
                 {
-                    var botao = new Button { Text = opcao, Margin = new Thickness(5) };
-                    botao.Clicked += OnRespostaClicked;
-                    BotoesLayout.Children.Add(botao);
+                    var exercicio = perguntasCores[exercicioAtual];
+                    ExercicioImage.Source = exercicio.imagem;
+                    PerguntaLabel.Text = exercicio.pergunta;
+
+                    foreach (var opcao in exercicio.opcoes)
+                    {
+                        var botao = new Button { Text = opcao, Margin = new Thickness(5) };
+                        botao.Clicked += OnRespostaClicked;
+                        BotoesLayout.Children.Add(botao);
+                    }
+                }
+                else
+                {
+                    int indiceBanco = exercicioAtual - perguntasCores.Length;
+                    if (indiceBanco < perguntasDoBanco.Count)
+                    {
+                        var exercicioBanco = perguntasDoBanco[indiceBanco];
+                        ExercicioImage.Source = exercicioBanco.Imagem;
+                        PerguntaLabel.Text = exercicioBanco.Pergunta;
+
+                        string[] opcoesBanco = { exercicioBanco.AlternativaA, exercicioBanco.AlternativaB, exercicioBanco.AlternativaC };
+                        foreach (var opcao in opcoesBanco)
+                        {
+                            var botao = new Button { Text = opcao, Margin = new Thickness(5) };
+                            botao.Clicked += OnRespostaClicked;
+                            BotoesLayout.Children.Add(botao);
+                        }
+                    }
                 }
             }
+            // ==================== TRILHA 4: FORMAS ====================
             else if (idTrilhaAtual == 4)
             {
-                var exercicio = perguntasFormas[exercicioAtual];
-                ExercicioImage.Source = exercicio.imagem;
-                PerguntaLabel.Text = exercicio.pergunta;
-
-                foreach (var opcao in exercicio.opcoes)
+                if (exercicioAtual < perguntasFormas.Length)
                 {
-                    var botao = new Button { Text = opcao, Margin = new Thickness(5) };
-                    botao.Clicked += OnRespostaClicked;
-                    BotoesLayout.Children.Add(botao);
+                    var exercicio = perguntasFormas[exercicioAtual];
+                    ExercicioImage.Source = exercicio.imagem;
+                    PerguntaLabel.Text = exercicio.pergunta;
+
+                    foreach (var opcao in exercicio.opcoes)
+                    {
+                        var botao = new Button { Text = opcao, Margin = new Thickness(5) };
+                        botao.Clicked += OnRespostaClicked;
+                        BotoesLayout.Children.Add(botao);
+                    }
+                }
+                else
+                {
+                    int indiceBanco = exercicioAtual - perguntasFormas.Length;
+                    if (indiceBanco < perguntasDoBanco.Count)
+                    {
+                        var exercicioBanco = perguntasDoBanco[indiceBanco];
+                        ExercicioImage.Source = exercicioBanco.Imagem;
+                        PerguntaLabel.Text = exercicioBanco.Pergunta;
+
+                        string[] opcoesBanco = { exercicioBanco.AlternativaA, exercicioBanco.AlternativaB, exercicioBanco.AlternativaC };
+                        foreach (var opcao in opcoesBanco)
+                        {
+                            var botao = new Button { Text = opcao, Margin = new Thickness(5) };
+                            botao.Clicked += OnRespostaClicked;
+                            BotoesLayout.Children.Add(botao);
+                        }
+                    }
                 }
             }
+            // ==================== TRILHAS 1 E 2: NÚMEROS E QUANTIDADES ====================
             else
             {
-                if (estagioAtual == 1)
+                if (idTrilhaAtual == 1)
                 {
                     var exercicio = exerciciosEstagio1[exercicioAtual];
                     ExercicioImage.Source = exercicio.imagem;
@@ -121,7 +199,7 @@ namespace MauiAppTrilhaAprendizagem.Views
 
                     for (int i = 1; i <= maxOpcoes; i++)
                     {
-                        var botao = new Button { Text = i.ToString() };
+                        var botao = new Button { Text = i.ToString(), Margin = new Thickness(3) };
                         botao.Clicked += OnRespostaClicked;
                         BotoesLayout.Children.Add(botao);
                     }
@@ -139,13 +217,13 @@ namespace MauiAppTrilhaAprendizagem.Views
 
                     for (int i = 1; i <= maxOpcoes; i++)
                     {
-                        var botao = new Button { Text = i.ToString() };
+                        var botao = new Button { Text = i.ToString(), Margin = new Thickness(3) };
                         botao.Clicked += OnRespostaClicked;
                         BotoesLayout.Children.Add(botao);
                     }
                 }
             }
-        }
+        } // <--- Fecha o CarregarExercicio() corretamente
 
         void OnRespostaClicked(object sender, EventArgs e)
         {
@@ -167,13 +245,16 @@ namespace MauiAppTrilhaAprendizagem.Views
                 string respostaCorreta = perguntasFormas[exercicioAtual].respostaCorreta;
                 acertou = (resposta == respostaCorreta);
             }
+            else if (idTrilhaAtual == 1)
+            {
+                int resposta = int.Parse(botao.Text);
+                int respostaCorreta = exerciciosEstagio1[exercicioAtual].respostaCorreta;
+                acertou = (resposta == respostaCorreta);
+            }
             else
             {
                 int resposta = int.Parse(botao.Text);
-                int respostaCorreta = estagioAtual == 1
-                    ? exerciciosEstagio1[exercicioAtual].respostaCorreta
-                    : exerciciosEstagio2[exercicioAtual].totalDesejado - exerciciosEstagio2[exercicioAtual].quantidadeNaImagem;
-
+                int respostaCorreta = exerciciosEstagio2[exercicioAtual].totalDesejado - exerciciosEstagio2[exercicioAtual].quantidadeNaImagem;
                 acertou = (resposta == respostaCorreta);
             }
 
@@ -191,22 +272,19 @@ namespace MauiAppTrilhaAprendizagem.Views
             }
         }
 
-        async void OnProximoClicked(object sender, EventArgs e)
+        private async void OnProximoClicked(object sender, EventArgs e)
         {
             exercicioAtual++;
 
-            int limiteTotal = exerciciosEstagio1.Length;
-            if (idTrilhaAtual == 3) limiteTotal = perguntasCores.Length;
-            if (idTrilhaAtual == 4) limiteTotal = perguntasFormas.Length;
-
-            if (idTrilhaAtual != 3 && idTrilhaAtual != 4 && estagioAtual == 1)
+            // Define o limite individual de cada uma das 4 trilhas
+            int limiteTotal = idTrilhaAtual switch
             {
-                limiteTotal = exerciciosEstagio1.Length;
-            }
-            else if (idTrilhaAtual != 3 && idTrilhaAtual != 4 && estagioAtual == 2)
-            {
-                limiteTotal = exerciciosEstagio2.Length;
-            }
+                1 => exerciciosEstagio1.Length,
+                2 => exerciciosEstagio2.Length,
+                3 => perguntasCores.Length + perguntasDoBanco.Count,
+                4 => perguntasFormas.Length + perguntasDoBanco.Count,
+                _ => exerciciosEstagio1.Length
+            };
 
             if (exercicioAtual < limiteTotal)
             {
@@ -214,29 +292,21 @@ namespace MauiAppTrilhaAprendizagem.Views
             }
             else
             {
-                if (idTrilhaAtual != 3 && idTrilhaAtual != 4 && estagioAtual == 1)
-                {
-                    estagioAtual = 2;
-                    exercicioAtual = 0;
-                    CarregarExercicio();
-                }
-                else
-                {
-                    int pontosGanhos = acertos * 10;
-                    await SalvarProgressoNoBancoAsync(nomeTrilhaTexto, pontosGanhos, acertos, tentativas);
+                // 🌟 FIM DIRETO DA TRILHA: Não pula mais da Trilha 1 para a Trilha 2!
+                int pontosGanhos = acertos * 10;
+                await SalvarProgressoNoBancoAsync(nomeTrilhaTexto, pontosGanhos, acertos, tentativas);
 
-                    PerguntaLabel.Text = $"🎉 PARABÉNS!\n\nVocê concluiu com sucesso a {nomeTrilhaTexto}!\n\n⭐ Total de Acertos: {acertos}\n🔄 Total de Tentativas: {tentativas}\n🏆 Pontuação Total: {pontosGanhos} pontos";
+                PerguntaLabel.Text = $"🎉 PARABÉNS!\n\nVocê concluiu com sucesso a {nomeTrilhaTexto}!\n\n⭐ Total de Acertos: {acertos}\n🔄 Total de Tentativas: {tentativas}\n🏆 Pontuação Total: {pontosGanhos} pontos";
 
-                    ExercicioImage.Source = null;
-                    FeedbackLabel.Text = "";
-                    ProximoButton.IsVisible = false;
-                    BotoesLayout.Children.Clear();
+                ExercicioImage.Source = null;
+                FeedbackLabel.Text = "";
+                ProximoButton.IsVisible = false;
+                BotoesLayout.Children.Clear();
 
-                    aluno.TotalAcertos += acertos;
-                    aluno.TotalTentativas += tentativas;
-                    aluno.PontuacaoTotal += pontosGanhos;
-                    OutraTrilhaButton.IsVisible = true;
-                }
+                aluno.TotalAcertos += acertos;
+                aluno.TotalTentativas += tentativas;
+                aluno.PontuacaoTotal += pontosGanhos;
+                OutraTrilhaButton.IsVisible = true;
             }
         }
 
@@ -252,10 +322,12 @@ namespace MauiAppTrilhaAprendizagem.Views
                 $"Acertos: {acertos}\nTentativas: {tentativas}\nPontuação: {acertos * 10}",
                 "OK");
         }
+
         async void OnOutraTrilhaClicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
+
         private async Task SalvarProgressoNoBancoAsync(string nomeTrilha, int pontos, int totalAcertos, int totalTentativas)
         {
             try
@@ -277,3 +349,4 @@ namespace MauiAppTrilhaAprendizagem.Views
         }
     }
 }
+

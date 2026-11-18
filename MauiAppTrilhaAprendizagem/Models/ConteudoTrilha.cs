@@ -23,5 +23,7 @@ namespace MauiAppTrilhaAprendizagem.Models
         public string AlternativaC { get; set; } = string.Empty;
 
         public string RespostaCorreta { get; set; } = string.Empty;
+
+        public string NomeImagem { get; set; }
     }
 }

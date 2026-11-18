@@ -26,5 +26,7 @@ namespace MauiAppTrilhaAprendizagem.Models
         public string TrilhasConcluidas { get; set; } = string.Empty;
         public string AtividadeEspecifica { get; set; } = string.Empty;
         public string TrilhasEmAndamento { get; set; } = string.Empty;
+        public string AtividadeReforco { get; set; } = string.Empty;
+
     }
 }

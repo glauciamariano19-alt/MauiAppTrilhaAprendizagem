@@ -74,21 +74,25 @@ public partial class GerenciarAtividadesPage : ContentPage
 
     private async void OnEnviarAtividadeClicked(object sender, EventArgs e)
     {
-        if (AlunoPicker.SelectedIndex < 0 ||
-            TrilhaPicker.SelectedIndex < 0)
-            
+        if (AlunoPicker.SelectedIndex < 0 || TrilhaPicker.SelectedIndex < 0)
         {
-            await DisplayAlert("Atenção","Selecione aluno, trilha e exercício.", "OK");
-
+            await DisplayAlert("Atenção", "Selecione o aluno e a trilha.", "OK");
             return;
         }
 
+        // Pega o aluno selecionado na lista
         var aluno = alunos[AlunoPicker.SelectedIndex];
 
-        aluno.AtividadeEspecifica =  TrilhaPicker.SelectedItem.ToString();
+        // Grava o nome da trilha de reforço no cadastro dele
+        aluno.AtividadeEspecifica = TrilhaPicker.SelectedItem.ToString();
 
-        await App.Database.UpdateUsuarioAsync(aluno);
+        // Salva a alteração no SQLite
+        var db = new DatabaseContext();
+        await db.UpdateUsuarioAsync(aluno);
 
-        await DisplayAlert("Sucesso", $"Atividade enviada para {aluno.Nome}", "OK");
+        await DisplayAlert("Sucesso!", $"Atividade de reforço ({aluno.AtividadeEspecifica}) enviada para {aluno.Nome}.", "OK");
+
+        // Volta para a tela anterior
+        await Navigation.PopAsync();
     }
 }

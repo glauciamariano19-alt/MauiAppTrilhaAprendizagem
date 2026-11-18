@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android</TargetFrameworks>
@@ -25,8 +25,7 @@
 		     For individual files, you can override by setting Inflator metadata:
 		       <MauiXaml Update="MyPage.xaml" Inflator="Default" /> (reverts to defaults: Runtime for Debug, XamlC for Release)
 		       <MauiXaml Update="MyPage.xaml" Inflator="Runtime" /> (force runtime inflation) -->
-		<MauiXamlInflator>SourceGen</MauiXamlInflator>
-
+		
 		<!-- Display name -->
 		<ApplicationTitle>MauiAppTrilhaAprendizagem</ApplicationTitle>
 
@@ -77,11 +76,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\AlunoHomePage.xaml.cs">
-	    <DependentUpon>AlunoHomePage.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\LoginPage.xaml.cs">
 	    <DependentUpon>LoginPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\GerenciarAlunosPage.xaml.cs">
+	    <DependentUpon>GerenciarAlunosPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\ProfessorHomePage.xaml.cs">
 	    <DependentUpon>ProfessorHomePage.xaml</DependentUpon>
@@ -95,10 +94,7 @@
 	  <MauiXaml Update="Views\AcompanharAlunosPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\AlunoHomePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\Aluno\ExerciciosPage.xaml">
+	   <MauiXaml Update="Views\Aluno\ExerciciosPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\Aluno\ProgressoPage.xaml">
@@ -120,6 +116,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\GerenciarAlunosPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ProfessorHomePage.xaml">

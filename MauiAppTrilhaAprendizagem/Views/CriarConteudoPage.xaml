@@ -33,6 +33,9 @@
             <Entry x:Name="entryPergunta"
                    Placeholder="Digite a pergunta"/>
 
+            <Label Text="Nome da Imagem (Ex: bola.png)" FontAttributes="Bold" />
+            <Entry x:Name="entryImagem" Placeholder="Digite o nome exato do arquivo com a extensão" />
+
             <Label Text="Alternativa A"/>
 
             <Entry x:Name="entryAltA"

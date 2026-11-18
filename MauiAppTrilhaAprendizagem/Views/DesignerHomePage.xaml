@@ -13,6 +13,10 @@
                 HorizontalOptions="Fill"
                 Clicked="OnCriarConteudosClicked"/>
 
+        <Button Text="👥 Gerenciar Alunos"
+                HorizontalOptions="Fill"
+                Clicked="OnGerenciarAlunosClicked"/>
+
         <Button Text="Sair"
                 BackgroundColor="#0078D7"
                 TextColor="White"

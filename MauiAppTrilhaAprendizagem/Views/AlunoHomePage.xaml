@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppTrilhaAprendizagem.Views.AlunoHomePage"
@@ -9,7 +10,17 @@
                HorizontalOptions="Center"
                TextColor="DarkBlue"/>
 
-        <Button Text="📚 Minhas Trilhas"
+        <Button x:Name="ReforcoButton"
+                Text="✅ Nenhuma atividade de reforço pendente"
+                BackgroundColor="LightGray"
+                TextColor="DarkGray"
+                FontAttributes="Bold"
+                HorizontalOptions="Fill"
+                IsEnabled="False"
+                Clicked="OnReforcoClicked"/>
+
+        <Button x:Name="MinhasTrilhasButton"
+                Text="📚 Minhas Trilhas"
                 HorizontalOptions="Fill"
                 Clicked="OnTrilhasClicked"/>
 

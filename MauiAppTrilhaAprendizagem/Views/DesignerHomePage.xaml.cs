@@ -1,32 +1,28 @@
-using MauiAppTrilhaAprendizagem.Models;
+using System;
+using Microsoft.Maui.Controls;
 
 namespace MauiAppTrilhaAprendizagem.Views
 {
-    public partial class CriarConteudoPage : ContentPage
+    public partial class DesignerHomePage : ContentPage
     {
-        public CriarConteudoPage()
+        public DesignerHomePage()
         {
             InitializeComponent();
         }
 
-        private async void OnSalvarConteudoClicked(
-            object sender,
-            EventArgs e)
+        private async void OnCriarConteudosClicked(object sender, EventArgs e)
         {
-            if (pickerTrilha.SelectedIndex < 0 ||
-                string.IsNullOrWhiteSpace(entryPergunta.Text) ||
-                string.IsNullOrWhiteSpace(entryAltA.Text) ||
-                string.IsNullOrWhiteSpace(entryAltB.Text) ||
-                string.IsNullOrWhiteSpace(entryAltC.Text) ||
-                pickerCorreta.SelectedIndex < 0)
-            {
-                await DisplayAlert("Atenção", "Preencha todos os campos.","OK");
+            // Navega para a página correta de criar conteúdo
+            await Navigation.PushAsync(new CriarConteudoPage());
+        }
 
-                return;
-            }
-
-            await DisplayAlert("Sucesso", $"Novo conteúdo criado para a {pickerTrilha.SelectedItem}","OK");
-
+        private async void OnGerenciarAlunosClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new GerenciarAlunosPage());
+        }
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            // Volta para a tela anterior (Ex: Login)
             await Navigation.PopAsync();
         }
     }
